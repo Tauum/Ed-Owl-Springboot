@@ -13,6 +13,7 @@ public class SubmittedHangman {
     private boolean hintUsed;
     private boolean completed;
     private LocalDate generatedDate;
+    private int timeTaken;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "hangman_submitted_hangman",
@@ -29,13 +30,22 @@ public class SubmittedHangman {
     public SubmittedHangman() {
     }
 
-    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, Hangman hangman, User user) {
+    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, int timeTaken, Hangman hangman, User user) {
         this.incorrect = incorrect;
         this.hintUsed = hintUsed;
         this.completed = completed;
         this.generatedDate = generatedDate;
+        this.timeTaken = timeTaken;
         this.hangman = hangman;
         this.user = user;
+    }
+
+    public int getTimeTaken() {
+        return timeTaken;
+    }
+
+    public void setTimeTaken(int timeTaken) {
+        this.timeTaken = timeTaken;
     }
 
     public Long getId() {

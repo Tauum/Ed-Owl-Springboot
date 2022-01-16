@@ -41,5 +41,9 @@ public class HangmanService {
     public Hangman findHanganOrderByGeneratedDateDesc() {
         return hangmanRepo.findFirstByOrderByIdDesc();
     }
+
+    public List<Hangman> findAllOrderByGeneratedDateDesc() {
+        return hangmanRepo.findAllByOrderByGeneratedDateDesc();
+    }
 }
 
