@@ -21,33 +21,75 @@ public class SubmittedQuiz {
             inverseJoinColumns = { @JoinColumn(name = "user_id")})
     public User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "Submitted_Quiz_Quiz",
-            joinColumns = { @JoinColumn(name = "quiz_submitted_id")},
-            inverseJoinColumns = { @JoinColumn(name = "quiz_id")})
-    public Quiz quiz;
+    public String quizTitle;
+    public int quizValue;
+    public int quizTimeLimit;
+    public Long quizId;
 
     private float score;
     private LocalDate generatedDate;
-    private float timeTaken;
+    private int timeTaken;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Submitted_quiz_question",
-            joinColumns = { @JoinColumn(name = "quiz_submitted_id")},
-            inverseJoinColumns = { @JoinColumn(name = "question_id")})
+            joinColumns = { @JoinColumn(name = "quiz_id")},
+            inverseJoinColumns = { @JoinColumn(name = "submitted_question_id")})
     @Column(name = "submitted_questions")
     private Set<SubmittedQuestion> submittedQuestions = new HashSet<>();
 
     public SubmittedQuiz() {
     }
 
-    public SubmittedQuiz(User user, Quiz quiz, float score, LocalDate generatedDate, float timeTaken, Set<SubmittedQuestion> submittedQuestions) {
+    public SubmittedQuiz(User user, String quizTitle, int quizValue, int quizTimeLimit, Long quizId, float score, LocalDate generatedDate, int timeTaken, Set<SubmittedQuestion> submittedQuestions) {
         this.user = user;
-        this.quiz = quiz;
+        this.quizTitle = quizTitle;
+        this.quizValue = quizValue;
+        this.quizTimeLimit = quizTimeLimit;
+        this.quizId = quizId;
         this.score = score;
         this.generatedDate = generatedDate;
         this.timeTaken = timeTaken;
         this.submittedQuestions = submittedQuestions;
+    }
+
+    public int getQuizTimeLimit() {
+        return quizTimeLimit;
+    }
+
+    public void setQuizTimeLimit(int quizTimeLimit) {
+        this.quizTimeLimit = quizTimeLimit;
+    }
+
+    public Long getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public String getQuizTitle() {
+        return quizTitle;
+    }
+
+    public void setQuizTitle(String quizTitle) {
+        this.quizTitle = quizTitle;
+    }
+
+    public int getQuizValue() {
+        return quizValue;
+    }
+
+    public void setQuizValue(int quizValue) {
+        this.quizValue = quizValue;
+    }
+
+    public int getTimeLimit() {
+        return quizTimeLimit;
+    }
+
+    public void setTimeLimit(int quizTimeLimit) {
+        this.quizTimeLimit = quizTimeLimit;
     }
 
     public Long getId() {
@@ -64,14 +106,6 @@ public class SubmittedQuiz {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
     }
 
     public float getScore() {
@@ -94,7 +128,7 @@ public class SubmittedQuiz {
         return timeTaken;
     }
 
-    public void setTimeTaken(float timeTaken) {
+    public void setTimeTaken(int timeTaken) {
         this.timeTaken = timeTaken;
     }
 

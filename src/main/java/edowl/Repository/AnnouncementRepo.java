@@ -3,6 +3,8 @@ package edowl.Repository;
 import edowl.Model.Announcement;
 import edowl.Model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +15,7 @@ public interface AnnouncementRepo extends JpaRepository<Announcement, Long> {
     void deleteAnnouncementById(Long id);
 
     List<Announcement> findAllByOrderByGeneratedDate();
+
+    List<Announcement> findAllByGeneratedDateGreaterThanOrderByGeneratedDate(LocalDate fromDate);
 }
 

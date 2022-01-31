@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,5 +35,17 @@ public class AnnouncementService {
 
     public List<Announcement> findAllOrderByDate() {
         return announcementRepo.findAllByOrderByGeneratedDate();
+    }
+
+    public List<Announcement> findAllRecentOrderByDate(LocalDate fromDate) {
+
+        return announcementRepo.findAllByGeneratedDateGreaterThanOrderByGeneratedDate(fromDate);
+//        return announcementRepo.findAllByOrderByGeneratedDate();
+    }
+
+    public Announcement updateAnnouncement(Announcement attempt) {
+        {
+            return announcementRepo.save(attempt);
+        }
     }
 }

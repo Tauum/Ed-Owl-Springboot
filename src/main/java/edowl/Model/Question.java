@@ -9,25 +9,26 @@ import java.util.Set;
 public class Question {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String question;
-    private String explaination;
+    public Long id;
+    public String question;
+    public String explaination;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "question_answers",
             joinColumns = { @JoinColumn(name = "question_id")},
             inverseJoinColumns = { @JoinColumn(name = "answer_id")})
     @Column(name = "answers")
-    private Set<Answer> answers = new HashSet<>();
-    private float value;
+    public Set<Answer> answers;
+    public float value;
 
     public Question() { }
 
-    public Question(String question, String explaination, Set<Answer> answers, float value) {
+    public Question(String question, String explaination, Set<Answer> answers, float value, Quiz quiz) {
         this.question = question;
         this.explaination = explaination;
         this.answers = answers;
         this.value = value;
     }
+
 
     public Long getId() {
         return id;
@@ -67,5 +68,11 @@ public class Question {
 
     public void setValue(float value) {
         this.value = value;
+    }
+
+    public void setGeneral(String question, String explaination, float value){
+        this.value = value;
+        this.question = question;
+        this.explaination = explaination;
     }
 }

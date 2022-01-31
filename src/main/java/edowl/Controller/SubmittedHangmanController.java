@@ -27,15 +27,6 @@ public class SubmittedHangmanController {
         return new ResponseEntity<>(submittedHangmans, HttpStatus.OK); //ok is 200 status code
     }
 
-    //this doesnt work
-    @PostMapping("/getCountOfUserSubmissions")
-    public ResponseEntity<Integer> getCountOfUserSubmissions(@RequestBody SubmittedHangman submittedHangman){
-        List<SubmittedHangman> hangmans = submittedHangmanService
-                .findAllByUserIdAndHangmanId(submittedHangman.user.id, submittedHangman.hangman.id);
-        int counter = hangmans.size();
-        return new ResponseEntity<>(counter, HttpStatus.OK); //ok is 200 status code
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<SubmittedHangman> getSubmittedHangman(@PathVariable("id") Long id)
     {

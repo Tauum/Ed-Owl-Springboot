@@ -10,10 +10,10 @@ public class Announcement {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String content;
-    private String redirect;
-    private LocalDate generatedDate;
+    public Long id;
+    public String content;
+    public String redirect;
+    public LocalDate generatedDate;
 
     public Announcement() {  }
 

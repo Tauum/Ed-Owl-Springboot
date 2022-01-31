@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Column(name = "yob")
     private int yob;
     @Enumerated(EnumType.ORDINAL)
-    private Role role = Role.STUDENT;
+    private Role role;
 
     @Column(name = "terms_and_conditions")
     private boolean termsandconditions;
@@ -34,7 +34,7 @@ public class User implements Serializable {
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns = { @JoinColumn(name = "module_id")})
     @Column(name = "modules")
-    private Set<Module> modules = new HashSet<>(); // this doesnt work?
+    public Set<Module> modules = new HashSet<>(); // this doesnt work?
 
     public User() {}
 

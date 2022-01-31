@@ -1,19 +1,21 @@
 package edowl.Repository;
 
-import edowl.Model.SubmittedHangman;
+import edowl.Model.SubmittedMatch;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface SubmittedHangmanRepo extends JpaRepository<SubmittedHangman, Long> {
+public interface SubmittedMatchRepo extends JpaRepository<SubmittedMatch, Long> {
 
-    void deleteSubmittedHangmanById(Long id);
 
-    Optional<SubmittedHangman> findSubmittedHangmanById(Long id);
+    void deleteSubmittedMatchById(Long id);
+
+    Optional<SubmittedMatch> findSubmittedMatchById(Long id);
 
     //    https://stackoverflow.com/questions/70701668/springboot-list-of-objects-with-child-entities-not-returned/70701882#70701882
     @EntityGraph(attributePaths = {"user"})
-    List<SubmittedHangman> findAllByUserIdOrderByGeneratedDateDesc(Long id);
+    List<SubmittedMatch> findAllByUserIdOrderByGeneratedDateDesc(Long id);
 }
+

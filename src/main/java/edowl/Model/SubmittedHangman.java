@@ -4,25 +4,24 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity //needed for database mapping
-@Table(name = "SubmittedHangman")
+@Table(name = "Submitted_Hangman")
 public class SubmittedHangman {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY) private Long id;
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long id;
     private int incorrect;
     private boolean hintUsed;
     private boolean completed;
     private LocalDate generatedDate;
     private int timeTaken;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "hangman_submitted_hangman",
-            joinColumns = { @JoinColumn(name = "submitted_hangman_id")},
-            inverseJoinColumns = { @JoinColumn(name = "hangman_id")})
-    public Hangman hangman; // on submit it inserts this value instead of referencing
+    private float score;
+    private float hangmanValue;
+    public String hangmanTitle;
+    public Long hangmanId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_submitted_hangman",
+    @JoinTable(name = "submitted_hangman_user",
             joinColumns = { @JoinColumn(name = "submitted_hangman_id")},
             inverseJoinColumns = { @JoinColumn(name = "user_id")})
     public User user; // on submit it inserts this value instead of referencing
@@ -30,14 +29,41 @@ public class SubmittedHangman {
     public SubmittedHangman() {
     }
 
-    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, int timeTaken, Hangman hangman, User user) {
+    public Long getHangmanId() {
+        return hangmanId;
+    }
+
+    public void setHangmanId(Long hangmanId) {
+        this.hangmanId = hangmanId;
+    }
+
+    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, int timeTaken, float score, float hangmanValue, String hangmanTitle, Long hangmanId, User user) {
         this.incorrect = incorrect;
         this.hintUsed = hintUsed;
         this.completed = completed;
         this.generatedDate = generatedDate;
         this.timeTaken = timeTaken;
-        this.hangman = hangman;
+        this.score = score;
+        this.hangmanValue = hangmanValue;
+        this.hangmanTitle = hangmanTitle;
+        this.hangmanId = hangmanId;
         this.user = user;
+    }
+
+    public String getHangmanTitle() {
+        return hangmanTitle;
+    }
+
+    public void setHangmanTitle(String hangmanTitle) {
+        this.hangmanTitle = hangmanTitle;
+    }
+
+    public float getHangmanValue() {
+        return hangmanValue;
+    }
+
+    public void setHangmanValue(float hangmanValue) {
+        this.hangmanValue = hangmanValue;
     }
 
     public int getTimeTaken() {
@@ -80,13 +106,6 @@ public class SubmittedHangman {
         this.completed = completed;
     }
 
-    public Hangman getHangman() {
-        return hangman;
-    }
-
-    public void setHangman(Hangman hangman) {
-        this.hangman = hangman;
-    }
 
     public LocalDate getGeneratedDate() {
         return generatedDate;
@@ -102,6 +121,15 @@ public class SubmittedHangman {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
     }
 }
 

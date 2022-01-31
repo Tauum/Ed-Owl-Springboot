@@ -16,17 +16,19 @@ public class Hangman {
     public float value;
     public String subject;
     private LocalDate generatedDate;
+    public boolean hidden;
 
     public Hangman() {
     }
 
-    public Hangman(String title, String word, String hint, float value, String subject, LocalDate generatedDate) {
+    public Hangman(String title, String word, String hint, float value, String subject, LocalDate generatedDate, boolean hidden) {
         this.title = title;
         this.word = word;
         this.hint = hint;
         this.value = value;
         this.subject = subject;
         this.generatedDate = generatedDate;
+        this.hidden = hidden;
     }
 
     public Long getId() {
@@ -83,6 +85,14 @@ public class Hangman {
 
     public void setGeneratedDate(LocalDate generatedDate) {
         this.generatedDate = generatedDate;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }
 

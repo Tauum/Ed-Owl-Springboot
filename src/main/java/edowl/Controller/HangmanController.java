@@ -2,6 +2,7 @@ package edowl.Controller;
 
 
 import edowl.Model.Hangman;
+import edowl.Model.Post;
 import edowl.Model.Quiz;
 import edowl.Service.HangmanService;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,13 @@ public class HangmanController {
         return new ResponseEntity<>(hangmans, HttpStatus.OK); //ok is 200 status code
     }
 
+    @GetMapping("/newestOrder-hideHidden")
+    public ResponseEntity<List<Hangman>> getAllQuizOrderedByDateAndHideHidden()
+    {
+        List<Hangman> hangmans = hangmanService.findAllOrderByGeneratedDateDescAndNotHidden();
+        return new ResponseEntity<>(hangmans, HttpStatus.OK); //ok is 200 status code
+    }
+
     @GetMapping("/latest")
     public ResponseEntity<Hangman> getLatestHangman()
     {
@@ -72,6 +80,7 @@ public class HangmanController {
             attempt.setTitle(hangman.title);
             attempt.setValue(hangman.value);
             attempt.setWord(hangman.word);
+            attempt.setHidden(hangman.hidden);
             Hangman updatedHangman = hangmanService.updateHangman(attempt);
             return new ResponseEntity<>(updatedHangman, HttpStatus.OK);  //ok is 200 status code
         }

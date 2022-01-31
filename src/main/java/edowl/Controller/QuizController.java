@@ -38,10 +38,17 @@ public class QuizController {
         return new ResponseEntity<>(quizs, HttpStatus.OK); //ok is 200 status code
     }
 
-    @GetMapping("/latest")
-    public ResponseEntity<Quiz> getLatestQuiz()
+    @GetMapping("/newestOrder-hideHidden")
+    public ResponseEntity<List<Quiz>> getAllQuizOrderedByDateAndHideHidden()
     {
-        Quiz quiz = quizService.findQuizOrderByGeneratedDateDesc();
+        List<Quiz> quizs = quizService.findAllOrderByGeneratedDateDescAndNotHidden();
+        return new ResponseEntity<>(quizs, HttpStatus.OK); //ok is 200 status code
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<Quiz> getLatestQuizAndHideHidden()
+    {
+        Quiz quiz = quizService.findQuizOrderByGeneratedDateDescNotHidden();
         return new ResponseEntity<>(quiz, HttpStatus.OK); //ok is 200 status code
     }
 
@@ -59,30 +66,43 @@ public class QuizController {
         return new ResponseEntity<>(quiz, HttpStatus.CREATED); //ok is 200 status code
     }
 
+//    // "A collection with cascade=\"all-delete-orphan\" was no longer referenced by the owning entity instance: uk.ac.bolton.backend.Model.Quiz.questions
+//    @PutMapping("/update/{id}") // this doesnt work
+//    public ResponseEntity<Quiz> updateQuiz(@PathVariable("id") Long id, @RequestBody Quiz quiz)
+//    {
+//        Quiz attempt = quizService.findQuizById(id);
+//
+//        if (attempt != null){
+//            attempt.setTitle(quiz.title);
+//            attempt.setTimeLimit(quiz.timeLimit);
+//            attempt.setValue(quiz.value);
+//
+//            attempt.questions.clear();
+//
+//            attempt.setQuestions(quiz.questions);
+//
+//            Quiz updatedQuiz = quizService.updateQuiz(attempt);
+//            // potentially do this? V delete questions and answers and rewrite them
+//            // quizService.delete
+//            return new ResponseEntity<>(updatedQuiz, HttpStatus.OK);  //ok is 200 status code
+//        }
+//        return new ResponseEntity<>(attempt, HttpStatus.BAD_REQUEST);
+//
+////        Quiz updateQuiz = quizService.updateQuiz(quiz);
+////        return new ResponseEntity<>(updateQuiz, HttpStatus.OK);  //ok is 200 status code
+//    }
+
     // "A collection with cascade=\"all-delete-orphan\" was no longer referenced by the owning entity instance: uk.ac.bolton.backend.Model.Quiz.questions
     @PutMapping("/update/{id}") // this doesnt work
-    public ResponseEntity<Quiz> updateQuiz(@PathVariable("id") Long id, @RequestBody Quiz quiz)
-    {
-        Quiz attempt = quizService.findQuizById(id);
-        if (attempt != null){
-            attempt.setTitle(quiz.title);
-            attempt.setTimeLimit(quiz.timeLimit);
-            attempt.setValue(quiz.value);
-
-            attempt.questions.clear();
-
-            attempt.setQuestions(quiz.questions);
-
-            Quiz updatedQuiz = quizService.updateQuiz(attempt);
-            // potentially do this? V delete questions and answers and rewrite them
-            // quizService.delete
-            return new ResponseEntity<>(updatedQuiz, HttpStatus.OK);  //ok is 200 status code
+    public ResponseEntity<String> updateQuiz(@PathVariable("id") Long id, @RequestBody Quiz quiz) {
+        Quiz attempt = quizService.updateQuiz(id, quiz);
+        if (attempt != null) {
+            return new ResponseEntity<>("good", HttpStatus.OK);  //ok is 200 status code
         }
-        return new ResponseEntity<>(attempt, HttpStatus.BAD_REQUEST);
-
-//        Quiz updateQuiz = quizService.updateQuiz(quiz);
-//        return new ResponseEntity<>(updateQuiz, HttpStatus.OK);  //ok is 200 status code
+        return new ResponseEntity<>("bad", HttpStatus.BAD_REQUEST);
     }
+
+
 
     @DeleteMapping("/delete/{id}") // THIS DOESNT DELETE QUESTIONS OR ANSWERS
     public ResponseEntity<?> deleteQuiz(@PathVariable("id") Long id)

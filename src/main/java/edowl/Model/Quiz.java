@@ -2,6 +2,7 @@ package edowl.Model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,7 +12,7 @@ public class Quiz {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     public Long id;
     public String title;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch =  FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "quiz_questions",
             joinColumns = { @JoinColumn(name = "quiz_id")},
             inverseJoinColumns = { @JoinColumn(name = "question_id")})
@@ -20,15 +21,27 @@ public class Quiz {
     private LocalDate generatedDate;
     public int timeLimit;
     public float value;
+    public boolean hidden;
+    public String subject;
 
     public Quiz(){}
 
-    public Quiz(String title, Set<Question> questions, LocalDate generatedDate, int timeLimit, float value) {
+    public Quiz(String title, Set<Question> questions, LocalDate generatedDate, int timeLimit, float value, boolean hidden, String subject) {
         this.title = title;
         this.questions = questions;
         this.generatedDate = generatedDate;
         this.timeLimit = timeLimit;
         this.value = value;
+        this.hidden = hidden;
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public Long getId() {
@@ -77,6 +90,22 @@ public class Quiz {
 
     public void setValue(float value) {
         this.value = value;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public void setGeneral(String title, int timeLimit, float value, boolean hidden, String subject){
+        this.title = title;
+        this.timeLimit =timeLimit;
+        this.value =value;
+        this.hidden = hidden;
+        this.subject =subject;
     }
 
 }

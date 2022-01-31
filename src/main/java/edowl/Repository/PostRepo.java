@@ -12,8 +12,10 @@ public interface PostRepo extends JpaRepository<Post, Long> {
 
     Optional<Post> findPostById(Long id);
 
-    List<Post> findAllByOrderByCreationDesc();
+    List<Post> findAllByHiddenOrderByGeneratedDateDesc(boolean hidden);
 
-    List<Post> findByTitleContainsOrderByCreationDesc(String title);
+    List<Post> findAllByOrderByGeneratedDateDesc();
 
+    List<Post> findByTitleContainsAndHiddenEqualsOrderByGeneratedDateDesc(String title, boolean hidden);
+    List<Post> findByTitleContainsOrderByGeneratedDateDesc(String title);
 }

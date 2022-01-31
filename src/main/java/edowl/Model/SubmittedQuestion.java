@@ -1,6 +1,5 @@
 package edowl.Model;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -10,25 +9,61 @@ public class SubmittedQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long questionId;
     private String question;
+    private Long answerId;
     private String answer;
     private String explaination;
     private boolean correct;
     private float score;
-    private float timeTaken;
-    private boolean copied;
+    private boolean coppied;
+    private int questionValue;
 
     public SubmittedQuestion() {
     }
 
-    public SubmittedQuestion(String question, String answer, String explaination, boolean correct, float score, float timeTaken, boolean coppied) {
+    public SubmittedQuestion(Long questionId, String question, Long answerId, String answer, String explaination, boolean correct, float score, boolean coppied, int questionValue) {
+        this.questionId = questionId;
         this.question = question;
+        this.answerId = answerId;
         this.answer = answer;
         this.explaination = explaination;
         this.correct = correct;
         this.score = score;
-        this.timeTaken = timeTaken;
-        this.copied = copied;
+        this.coppied = coppied;
+        this.questionValue = questionValue;
+    }
+
+    public int getQuestionValue() {
+        return questionValue;
+    }
+
+    public void setQuestionValue(int questionValue) {
+        this.questionValue = questionValue;
+    }
+
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    public boolean isCoppied() {
+        return coppied;
+    }
+
+    public void setCoppied(boolean coppied) {
+        this.coppied = coppied;
     }
 
     public Long getId() {
@@ -79,19 +114,11 @@ public class SubmittedQuestion {
         this.score = score;
     }
 
-    public float getTime_taken() {
-        return timeTaken;
-    }
-
-    public void setTime_taken(float timeTaken) {
-        this.timeTaken = timeTaken;
-    }
-
     public boolean isCopied() {
-        return copied;
+        return coppied;
     }
 
-    public void setCopied(boolean copied) {
-        this.copied = copied;
+    public void setCopied(boolean coppied) {
+        this.coppied = coppied;
     }
 }

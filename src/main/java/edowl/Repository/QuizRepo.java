@@ -15,4 +15,8 @@ public interface QuizRepo extends JpaRepository<Quiz, Long> {
     List<Quiz> findAllByOrderByGeneratedDateDesc();
 
     Quiz findFirstByOrderByIdDesc();
+
+    List<Quiz> findAllByHiddenOrderByGeneratedDateDesc(boolean hidden);
+
+    Quiz findFirstByHiddenOrderByIdDesc(boolean hidden);
 }

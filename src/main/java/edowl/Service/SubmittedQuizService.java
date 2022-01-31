@@ -7,6 +7,7 @@ import edowl.Repository.SubmittedQuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class SubmittedQuizService {
     public SubmittedQuiz updateSubmittedQuiz(SubmittedQuiz quizSubmitted){ return submittedQuizRepo.save(quizSubmitted); }
 
     //query method (auto generates method in spring back-backend)
+    @Transactional
     public void deleteSubmittedQuiz(Long id) { submittedQuizRepo.deleteSubmittedQuizById(id);}
 
     public SubmittedQuiz findSubmittedQuizById(Long id)

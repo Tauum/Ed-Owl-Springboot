@@ -39,13 +39,19 @@ public class PostService {
     }
 
     public List<Post> findAllOrderByDate(){
-        return postRepo.findAllByOrderByCreationDesc();
+        return postRepo.findAllByOrderByGeneratedDateDesc();
     }
 
     public List<Post> findAllContainingTitle(String title)
     {
-        return postRepo.findByTitleContainsOrderByCreationDesc(title);
+//        return postRepo.findByTitleContainsOrderByGeneratedDateDesc(title);
+        return postRepo.findByTitleContainsAndHiddenEqualsOrderByGeneratedDateDesc(title, false);
+
     }
 
+    public List<Post> findAllOrderByGeneratedDateDescAndNotHidden() {
+
+        return postRepo.findAllByHiddenOrderByGeneratedDateDesc(false);
+    }
 }
 

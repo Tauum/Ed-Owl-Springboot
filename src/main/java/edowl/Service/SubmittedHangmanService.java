@@ -38,10 +38,6 @@ public class SubmittedHangmanService {
         submittedHangmanRepo.deleteSubmittedHangmanById(id);
     }
 
-    public List<SubmittedHangman> findAllByUserIdAndHangmanId(Long userId, Long hangmanId) {
-        return submittedHangmanRepo.findAllSubmittedHangmanByUserIdAndHangmanId(userId,hangmanId);
-    }
-
     public List<SubmittedHangman> findAllByUserId(Long id) {
         return submittedHangmanRepo.findAllByUserIdOrderByGeneratedDateDesc(id);
     }

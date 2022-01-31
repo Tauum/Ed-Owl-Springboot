@@ -14,18 +14,20 @@ public class Post {
     public String summary;
     public String content;
     public String author;
-    public LocalDate creation;
+    public LocalDate generatedDate;
     public String video;
+    public Boolean hidden;
 
     public Post() { }
 
-    public Post(String title, String summary, String content, String author, LocalDate creation, String video) {
+    public Post(String title, String summary, String content, String author, LocalDate generatedDate, String video, boolean hidden) {
         this.title = title;
         this.summary = summary;
         this.content = content;
         this.author = author;
-        this.creation = creation;
+        this.generatedDate = generatedDate;
         this.video = video;
+        this.hidden = hidden;
     }
 
     public Long getId() {
@@ -69,11 +71,19 @@ public class Post {
     }
 
     public LocalDate getCreation() {
-        return creation;
+        return generatedDate;
     }
 
-    public void setCreation(LocalDate creation) {
-        this.creation = creation;
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public void setCreation(LocalDate generatedDate) {
+        this.generatedDate = generatedDate;
     }
 
     public String getVideo() {

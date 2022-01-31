@@ -2,6 +2,7 @@ package edowl.Controller;
 
 
 import edowl.Model.Post;
+import edowl.Model.Quiz;
 import edowl.Service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,13 @@ public class PostController {
     public ResponseEntity<List<Post>> getAllPostsOrderedByDate()
     {
         List<Post> posts = postService.findAllOrderByDate();
+        return new ResponseEntity<>(posts, HttpStatus.OK); //ok is 200 status code
+    }
+
+    @GetMapping("/newestOrder-hideHidden")
+    public ResponseEntity<List<Post>> getAllQuizOrderedByDateAndHideHidden()
+    {
+        List<Post> posts = postService.findAllOrderByGeneratedDateDescAndNotHidden();
         return new ResponseEntity<>(posts, HttpStatus.OK); //ok is 200 status code
     }
 
@@ -64,6 +72,7 @@ public class PostController {
             attempt.setAuthor(post.author);
             attempt.setVideo(post.video);
             attempt.setContent(post.content);
+            attempt.setHidden(post.hidden);
             Post updatedPost = postService.updatePost(attempt);
             return new ResponseEntity<>(updatedPost, HttpStatus.OK);  //ok is 200 status code
         }

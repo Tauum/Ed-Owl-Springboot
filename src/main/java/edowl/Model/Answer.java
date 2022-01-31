@@ -7,9 +7,9 @@ import javax.persistence.*;
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String content;
-    private Boolean correct;
+    public Long id;
+    public String content;
+    public Boolean correct;
 
     public Answer() { }
 
@@ -39,6 +39,11 @@ public class Answer {
     }
 
     public void setCorrect(Boolean correct) {
+        this.correct = correct;
+    }
+
+    public void setGeneral(String content, boolean correct){
+        this.content = content;
         this.correct = correct;
     }
 
