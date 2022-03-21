@@ -38,4 +38,18 @@ public class SubmittedQuizService {
     public List<SubmittedQuiz> findAllByUserId(Long id) {
         return submittedQuizRepo.findAllByUserIdOrderByGeneratedDateDesc(id);
     }
+
+    public List<SubmittedQuiz> findAllByQuizTitle(String title) {
+        return submittedQuizRepo.findAllByQuizTitleContains(title);
+    }
+
+    public boolean patchRating(Boolean rating, Long id) {
+        SubmittedQuiz find = findSubmittedQuizById(id);
+        if ( find != null){
+            find.setRating(rating);
+            submittedQuizRepo.save(find);
+            return true;
+        }
+        return false;
+    }
 }

@@ -12,7 +12,7 @@ public class Module {
     private Long id;
     private String name;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "modules")
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     public Module() { }
 

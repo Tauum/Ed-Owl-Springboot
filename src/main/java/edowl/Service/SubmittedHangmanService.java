@@ -2,6 +2,7 @@ package edowl.Service;
 
 import edowl.Exception.EntityNotFoundException;
 import edowl.Model.SubmittedHangman;
+import edowl.Model.SubmittedQuiz;
 import edowl.Repository.SubmittedHangmanRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,22 @@ public class SubmittedHangmanService {
     public List<SubmittedHangman> findAllByUserId(Long id) {
         return submittedHangmanRepo.findAllByUserIdOrderByGeneratedDateDesc(id);
     }
+
+    public boolean patchRating(Boolean rating, Long id) {
+        SubmittedHangman find = findSubmittedHangmanById(id);
+        if ( find != null){
+            find.setRating(rating);
+            submittedHangmanRepo.save(find);
+            return true;
+        }
+        return false;
+    }
+
+    public List<SubmittedHangman> findAllByHangmanTitle(String title) {
+        return submittedHangmanRepo.findAllByHangmanTitleContains(title);
+    }
+
 }
+
+
 

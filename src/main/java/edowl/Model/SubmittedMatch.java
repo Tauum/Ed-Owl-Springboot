@@ -10,13 +10,14 @@ public class SubmittedMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY) public Long id;
 
     public String matchTitle;
-    public int matchValue;
+    public float matchValue;
     public Long matchId;
     private int incorrect;
     private int correct;
     private LocalDate generatedDate;
     private int timeTaken;
     private float score;
+    public boolean rating;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "submitted_match_user",
@@ -26,7 +27,7 @@ public class SubmittedMatch {
 
     public SubmittedMatch() { }
 
-    public SubmittedMatch(String matchTitle, int matchValue, Long matchId, int incorrect, int correct, LocalDate generatedDate, int timeTaken, float score, User user) {
+    public SubmittedMatch(String matchTitle, float matchValue, Long matchId, int incorrect, int correct, LocalDate generatedDate, int timeTaken, float score, User user) {
         this.matchTitle = matchTitle;
         this.matchValue = matchValue;
         this.matchId = matchId;
@@ -38,6 +39,14 @@ public class SubmittedMatch {
         this.user = user;
     }
 
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
+    }
+
     public String getMatchTitle() {
         return matchTitle;
     }
@@ -46,11 +55,11 @@ public class SubmittedMatch {
         this.matchTitle = matchTitle;
     }
 
-    public int getMatchValue() {
+    public float getMatchValue() {
         return matchValue;
     }
 
-    public void setMatchValue(int matchValue) {
+    public void setMatchValue(float matchValue) {
         this.matchValue = matchValue;
     }
 

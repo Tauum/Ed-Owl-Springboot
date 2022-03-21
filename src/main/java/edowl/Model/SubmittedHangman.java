@@ -19,6 +19,7 @@ public class SubmittedHangman {
     private float hangmanValue;
     public String hangmanTitle;
     public Long hangmanId;
+    public boolean rating;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "submitted_hangman_user",
@@ -48,6 +49,14 @@ public class SubmittedHangman {
         this.hangmanTitle = hangmanTitle;
         this.hangmanId = hangmanId;
         this.user = user;
+    }
+
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
     }
 
     public String getHangmanTitle() {

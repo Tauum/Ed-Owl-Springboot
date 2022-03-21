@@ -34,7 +34,7 @@ public class User implements Serializable {
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns = { @JoinColumn(name = "module_id")})
     @Column(name = "modules")
-    public Set<Module> modules = new HashSet<>(); // this doesnt work?
+    public Set<Module> modules; // this doesnt work?
 
     public User() {}
 
