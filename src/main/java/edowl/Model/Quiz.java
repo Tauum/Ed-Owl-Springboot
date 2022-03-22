@@ -23,10 +23,11 @@ public class Quiz {
     public float value;
     public boolean hidden;
     public String subject;
+    public String content;
 
     public Quiz(){}
 
-    public Quiz(String title, Set<Question> questions, LocalDate generatedDate, int timeLimit, float value, boolean hidden, String subject) {
+    public Quiz(String title, Set<Question> questions, LocalDate generatedDate, int timeLimit, float value, boolean hidden, String subject, String content) {
         this.title = title;
         this.questions = questions;
         this.generatedDate = generatedDate;
@@ -34,6 +35,15 @@ public class Quiz {
         this.value = value;
         this.hidden = hidden;
         this.subject = subject;
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getSubject() {
@@ -100,12 +110,13 @@ public class Quiz {
         this.hidden = hidden;
     }
 
-    public void setGeneral(String title, int timeLimit, float value, boolean hidden, String subject){
+    public void setGeneral(String title, int timeLimit, float value, boolean hidden, String subject, String content){
         this.title = title;
         this.timeLimit =timeLimit;
         this.value =value;
         this.hidden = hidden;
         this.subject =subject;
+        this.content = content;
     }
 
 }

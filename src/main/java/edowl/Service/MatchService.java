@@ -42,7 +42,13 @@ public class MatchService {
         Match find = findMatchById(id);
             if (find != null) {
                 // create set general for match
-                find.setGeneral(attempt.getTitle(),attempt.getValue(),attempt.isHidden(),attempt.getSubject());
+                find.setGeneral(
+                        attempt.getTitle(),
+                        attempt.getValue(),
+                        attempt.isHidden(),
+                        attempt.getSubject(),
+                        attempt.getContent()
+                );
 
                 ArrayList<Definition> remD = new ArrayList<>();
                 ArrayList<Definition> addD = new ArrayList<>();
@@ -52,7 +58,11 @@ public class MatchService {
                     for (Definition findCurD : find.definitions){
                         if (attemptCurD.getId()!= null ) {
                             if (attemptCurD.getId().equals(findCurD.getId())) {
-                                findCurD.setGeneral(attemptCurD.getTitle(), attemptCurD.getExplaination(), attemptCurD.getValue());
+                                findCurD.setGeneral(
+                                        attemptCurD.getTitle(),
+                                        attemptCurD.getExplaination(),
+                                        attemptCurD.getValue()
+                                );
                             }
                         }
                         else{ if (!addD.contains(attemptCurD)) { addD.add(attemptCurD); } } // double condition to prevent being added twice
@@ -91,6 +101,11 @@ public class MatchService {
 
     public Match findMatchOrderByGeneratedDateDescNotHidden() {
         return matchRepo.findFirstByHiddenOrderByIdDesc(false);
+    }
+
+    public Match findMatchByTitle(String title) {
+        return (Match) matchRepo.findFirstMatchByTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not foud with title: " + title));
     }
 
 }

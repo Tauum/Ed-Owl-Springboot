@@ -17,5 +17,6 @@ public interface SubmittedMatchRepo extends JpaRepository<SubmittedMatch, Long> 
     //    https://stackoverflow.com/questions/70701668/springboot-list-of-objects-with-child-entities-not-returned/70701882#70701882
     @EntityGraph(attributePaths = {"user"})
     List<SubmittedMatch> findAllByUserIdOrderByGeneratedDateDesc(Long id);
+
 }
 

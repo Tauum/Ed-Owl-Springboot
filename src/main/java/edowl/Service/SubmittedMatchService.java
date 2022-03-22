@@ -37,4 +37,14 @@ public class SubmittedMatchService {
     public List<SubmittedMatch> findAllByUserId(Long id) {
         return submittedMatchRepo.findAllByUserIdOrderByGeneratedDateDesc(id);
     }
+
+    public boolean patchRating(Boolean rating, Long id) {
+        SubmittedMatch find = findSubmittedMatchById(id);
+        if ( find != null){
+            find.setRating(rating);
+            submittedMatchRepo.save(find);
+            return true;
+        }
+        return false;
+    }
 }

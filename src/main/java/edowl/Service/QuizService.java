@@ -39,7 +39,13 @@ public class QuizService {
     public Quiz updateQuiz(Long id, Quiz attempt) {
         Quiz find = findQuizById(id);
         if (find != null) {
-            find.setGeneral(attempt.getTitle(),attempt.getTimeLimit(),attempt.getValue(),attempt.isHidden(),attempt.getSubject());
+            find.setGeneral(attempt.getTitle(),
+                    attempt.getTimeLimit(),
+                    attempt.getValue(),
+                    attempt.isHidden(),
+                    attempt.getSubject(),
+                    attempt.getContent()
+            );
 
             ArrayList<Question> remQ = new ArrayList<>();
             ArrayList<Question> addQ = new ArrayList<>();
@@ -115,5 +121,9 @@ public class QuizService {
     }
 
 
+    public Quiz findQuizByTitle(String title) {
+        return (Quiz) quizRepo.findFirstQuizByTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not foud with title: " + title));
+    }
 }
 

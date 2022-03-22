@@ -63,6 +63,15 @@ public class HangmanController {
         return new ResponseEntity<>(hangman, HttpStatus.OK); //ok is 200 status code
     }
 
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Hangman> getHangmanByTitle(@PathVariable("title")  String title)
+    {
+        Hangman hangman = hangmanService.findHanganByTitle(title);
+        return new ResponseEntity<>(hangman, HttpStatus.OK); //ok is 200 status code
+    }
+
+
+
     @PostMapping("/add")
     public ResponseEntity<Hangman> addHangman(@RequestBody Hangman hangman)
     {
@@ -80,6 +89,7 @@ public class HangmanController {
             attempt.setTitle(hangman.title);
             attempt.setValue(hangman.value);
             attempt.setWord(hangman.word);
+            attempt.setContent(hangman.content);
             attempt.setHidden(hangman.hidden);
             Hangman updatedHangman = hangmanService.updateHangman(attempt);
             return new ResponseEntity<>(updatedHangman, HttpStatus.OK);  //ok is 200 status code

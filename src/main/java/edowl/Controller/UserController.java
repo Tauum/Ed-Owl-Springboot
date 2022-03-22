@@ -1,17 +1,24 @@
 package edowl.Controller;
 
+import edowl.Model.Statistic;
+import edowl.Model.SubmittedHangman;
+import edowl.Model.SubmittedQuiz;
 import edowl.Model.User;
 import edowl.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/User")
 public class UserController {
     private final UserService userService;
+    private SubmittedMatchController submitttedMatchController;
+    private SubmittedHangmanController submittedHangmanController;
+    private SubmittedQuizController submittedQuizController;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -26,6 +33,12 @@ public class UserController {
 //
 //        return new ResponseEntity<>(result, HttpStatus.OK); //ok is 200 status code
 //    }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<User>> getAllUsers()
+    {
+        List<User> users = userService.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK); //ok is 200 status code
+    }
 
     //@CrossOrigin( origins = "http://localhost:3000")
     @GetMapping("/{id}")
@@ -33,6 +46,19 @@ public class UserController {
     {
         User User = userService.findUserById(id);
         return new ResponseEntity<>(User, HttpStatus.OK); //ok is 200 status code
+    }
+
+    @GetMapping("/allStatsFor/{id}")
+    public ResponseEntity<List<Statistic>> getAllStatsForUserByID(@PathVariable("id") Long id)
+    {
+        List<Statistic> statistics = new ArrayList<>();
+        User user = userService.findUserById(id);
+        if (user != null){
+            statistics.add(submittedHangmanController.getSubmittedHangmanStatsForUser(id)); // throws error on here
+            statistics.add(submittedQuizController.getSubmittedQuizStatsForUser(id));
+            statistics.add(submitttedMatchController.getSubmittedMatchStatsForUser(id));
+        }
+        return new ResponseEntity<>(statistics, HttpStatus.OK); //ok is 200 status code
     }
 
     @PostMapping("/checkAlt")
@@ -44,12 +70,7 @@ public class UserController {
         return new ResponseEntity<>(result, HttpStatus.OK); //ok is 200 status code
     }
 
-    @PostMapping("/getAll")
-    public ResponseEntity<List<User>> getAllUsers()
-    {
-        List<User> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK); //ok is 200 status code
-    }
+
 
     @PostMapping("/getByEmail")
     public ResponseEntity<User> getUserByEmail(@RequestBody User user){

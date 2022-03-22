@@ -17,4 +17,6 @@ public interface MatchRepo extends JpaRepository<Match, Long> {
     List<Match> findAllByHiddenOrderByGeneratedDateDesc(boolean hidden);
 
     Match findFirstByHiddenOrderByIdDesc(boolean hidden);
+
+    Optional<Object> findFirstMatchByTitle(String title);
 }

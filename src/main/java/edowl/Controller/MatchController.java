@@ -1,6 +1,7 @@
 package edowl.Controller;
 
 import edowl.Model.Match;
+import edowl.Model.Quiz;
 import edowl.Service.MatchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,14 @@ public class MatchController {
     {
         Match attempt = matchService.findMatchById(match.getId());
         return new ResponseEntity<>(attempt, HttpStatus.OK); //ok is 200 status code
+    }
+
+
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Match> getMatchByTitle(@PathVariable("title")  String title)
+    {
+        Match match = matchService.findMatchByTitle(title);
+        return new ResponseEntity<>(match, HttpStatus.OK); //ok is 200 status code
     }
 
     @PostMapping("/add")

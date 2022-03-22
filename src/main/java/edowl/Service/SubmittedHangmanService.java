@@ -41,5 +41,15 @@ public class SubmittedHangmanService {
     public List<SubmittedHangman> findAllByUserId(Long id) {
         return submittedHangmanRepo.findAllByUserIdOrderByGeneratedDateDesc(id);
     }
+
+    public boolean patchRating(Boolean rating, Long id) {
+        SubmittedHangman find = findSubmittedHangmanById(id);
+        if ( find != null){
+            find.setRating(rating);
+            submittedHangmanRepo.save(find);
+            return true;
+        }
+        return false;
+    }
 }
 

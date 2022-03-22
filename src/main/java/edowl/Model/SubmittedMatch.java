@@ -10,13 +10,15 @@ public class SubmittedMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY) public Long id;
 
     public String matchTitle;
-    public int matchValue;
+    public float matchValue;
+    public String matchContent;
     public Long matchId;
     private int incorrect;
     private int correct;
     private LocalDate generatedDate;
     private int timeTaken;
     private float score;
+    public boolean rating;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "submitted_match_user",
@@ -26,16 +28,34 @@ public class SubmittedMatch {
 
     public SubmittedMatch() { }
 
-    public SubmittedMatch(String matchTitle, int matchValue, Long matchId, int incorrect, int correct, LocalDate generatedDate, int timeTaken, float score, User user) {
+    public SubmittedMatch(String matchTitle, float matchValue, String matchContent, Long matchId, int incorrect, int correct, LocalDate generatedDate, int timeTaken, float score, boolean rating, User user) {
         this.matchTitle = matchTitle;
         this.matchValue = matchValue;
+        this.matchContent = matchContent;
         this.matchId = matchId;
         this.incorrect = incorrect;
         this.correct = correct;
         this.generatedDate = generatedDate;
         this.timeTaken = timeTaken;
         this.score = score;
+        this.rating = rating;
         this.user = user;
+    }
+
+    public String getMatchContent() {
+        return matchContent;
+    }
+
+    public void setMatchContent(String matchContent) {
+        this.matchContent = matchContent;
+    }
+
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
     }
 
     public String getMatchTitle() {
@@ -46,11 +66,11 @@ public class SubmittedMatch {
         this.matchTitle = matchTitle;
     }
 
-    public int getMatchValue() {
+    public float getMatchValue() {
         return matchValue;
     }
 
-    public void setMatchValue(int matchValue) {
+    public void setMatchValue(float matchValue) {
         this.matchValue = matchValue;
     }
 

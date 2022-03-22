@@ -17,4 +17,6 @@ public interface HangmanRepo extends JpaRepository<Hangman, Long> {
     List<Hangman> findAllByOrderByGeneratedDateDesc();
 
     List<Hangman> findAllByHiddenOrderByGeneratedDateDesc(boolean hidden);
+
+    Optional<Hangman> findFirstHangmanByTitle(String title);
 }

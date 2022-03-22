@@ -15,20 +15,30 @@ public class Hangman {
     public String hint;
     public float value;
     public String subject;
+    public String content;
     private LocalDate generatedDate;
     public boolean hidden;
 
     public Hangman() {
     }
 
-    public Hangman(String title, String word, String hint, float value, String subject, LocalDate generatedDate, boolean hidden) {
+    public Hangman(String title, String word, String hint, float value, String subject, String content, LocalDate generatedDate, boolean hidden) {
         this.title = title;
         this.word = word;
         this.hint = hint;
         this.value = value;
         this.subject = subject;
+        this.content = content;
         this.generatedDate = generatedDate;
         this.hidden = hidden;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Long getId() {

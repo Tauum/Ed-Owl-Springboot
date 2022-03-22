@@ -22,17 +22,27 @@ public class Match {
     public String subject;
     private LocalDate generatedDate;
     public float value;
+    public String content;
     public boolean hidden;
 
-    public Match() { }
-
-    public Match(Set<Definition> definitions, String title, String subject, LocalDate generatedDate, float value, boolean hidden) {
+    public Match(Set<Definition> definitions, String title, String subject, LocalDate generatedDate, float value, String content, boolean hidden) {
         this.definitions = definitions;
         this.title = title;
         this.subject = subject;
         this.generatedDate = generatedDate;
         this.value = value;
+        this.content = content;
         this.hidden = hidden;
+    }
+
+    public Match() { }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getSubject() {
@@ -92,11 +102,14 @@ public class Match {
         this.value = value;
     }
 
-    public void setGeneral(String title, float value, boolean hidden, String subject){
+
+
+    public void setGeneral(String title, float value, boolean hidden, String subject, String content){
         this.title = title;
         this.value =value;
         this.hidden = hidden;
         this.subject =subject;
+        this.content = content;
     }
 
 }

@@ -49,5 +49,10 @@ public class HangmanService {
     public List<Hangman> findAllOrderByGeneratedDateDescAndNotHidden() {
         return hangmanRepo.findAllByHiddenOrderByGeneratedDateDesc(false);
     }
+
+    public Hangman findHanganByTitle(String title) {
+        return hangmanRepo.findFirstHangmanByTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Entity not foud with title: " + title));
+    }
 }
 

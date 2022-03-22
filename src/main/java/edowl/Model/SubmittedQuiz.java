@@ -20,15 +20,15 @@ public class SubmittedQuiz {
             joinColumns = { @JoinColumn(name = "quiz_submitted_id")},
             inverseJoinColumns = { @JoinColumn(name = "user_id")})
     public User user;
-
-    public String quizTitle;
-    public int quizValue;
-    public int quizTimeLimit;
+    private String quizTitle;
+    private int quizValue;
+    private int quizTimeLimit;
     public Long quizId;
 
     private float score;
     private LocalDate generatedDate;
     private int timeTaken;
+    private boolean rating;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Submitted_quiz_question",
@@ -40,7 +40,7 @@ public class SubmittedQuiz {
     public SubmittedQuiz() {
     }
 
-    public SubmittedQuiz(User user, String quizTitle, int quizValue, int quizTimeLimit, Long quizId, float score, LocalDate generatedDate, int timeTaken, Set<SubmittedQuestion> submittedQuestions) {
+    public SubmittedQuiz(User user, String quizTitle, int quizValue, int quizTimeLimit, Long quizId, float score, LocalDate generatedDate, int timeTaken, boolean rating, Set<SubmittedQuestion> submittedQuestions) {
         this.user = user;
         this.quizTitle = quizTitle;
         this.quizValue = quizValue;
@@ -49,7 +49,15 @@ public class SubmittedQuiz {
         this.score = score;
         this.generatedDate = generatedDate;
         this.timeTaken = timeTaken;
+        this.rating = rating;
         this.submittedQuestions = submittedQuestions;
+    }
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
     }
 
     public int getQuizTimeLimit() {

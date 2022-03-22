@@ -19,6 +19,7 @@ public class SubmittedHangman {
     private float hangmanValue;
     public String hangmanTitle;
     public Long hangmanId;
+    public boolean rating;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "submitted_hangman_user",
@@ -29,15 +30,7 @@ public class SubmittedHangman {
     public SubmittedHangman() {
     }
 
-    public Long getHangmanId() {
-        return hangmanId;
-    }
-
-    public void setHangmanId(Long hangmanId) {
-        this.hangmanId = hangmanId;
-    }
-
-    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, int timeTaken, float score, float hangmanValue, String hangmanTitle, Long hangmanId, User user) {
+    public SubmittedHangman(int incorrect, boolean hintUsed, boolean completed, LocalDate generatedDate, int timeTaken, float score, float hangmanValue, String hangmanTitle, Long hangmanId, boolean rating, String hangmanContent, User user) {
         this.incorrect = incorrect;
         this.hintUsed = hintUsed;
         this.completed = completed;
@@ -47,7 +40,24 @@ public class SubmittedHangman {
         this.hangmanValue = hangmanValue;
         this.hangmanTitle = hangmanTitle;
         this.hangmanId = hangmanId;
+        this.rating = rating;
         this.user = user;
+    }
+
+    public Long getHangmanId() {
+        return hangmanId;
+    }
+
+    public void setHangmanId(Long hangmanId) {
+        this.hangmanId = hangmanId;
+    }
+
+    public boolean isRating() {
+        return rating;
+    }
+
+    public void setRating(boolean rating) {
+        this.rating = rating;
     }
 
     public String getHangmanTitle() {

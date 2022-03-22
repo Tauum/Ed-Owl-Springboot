@@ -1,5 +1,6 @@
 package edowl.Controller;
 
+import edowl.Model.Hangman;
 import edowl.Model.Quiz;
 import edowl.Service.QuizService;
 import org.springframework.http.HttpStatus;
@@ -66,31 +67,12 @@ public class QuizController {
         return new ResponseEntity<>(quiz, HttpStatus.CREATED); //ok is 200 status code
     }
 
-//    // "A collection with cascade=\"all-delete-orphan\" was no longer referenced by the owning entity instance: uk.ac.bolton.backend.Model.Quiz.questions
-//    @PutMapping("/update/{id}") // this doesnt work
-//    public ResponseEntity<Quiz> updateQuiz(@PathVariable("id") Long id, @RequestBody Quiz quiz)
-//    {
-//        Quiz attempt = quizService.findQuizById(id);
-//
-//        if (attempt != null){
-//            attempt.setTitle(quiz.title);
-//            attempt.setTimeLimit(quiz.timeLimit);
-//            attempt.setValue(quiz.value);
-//
-//            attempt.questions.clear();
-//
-//            attempt.setQuestions(quiz.questions);
-//
-//            Quiz updatedQuiz = quizService.updateQuiz(attempt);
-//            // potentially do this? V delete questions and answers and rewrite them
-//            // quizService.delete
-//            return new ResponseEntity<>(updatedQuiz, HttpStatus.OK);  //ok is 200 status code
-//        }
-//        return new ResponseEntity<>(attempt, HttpStatus.BAD_REQUEST);
-//
-////        Quiz updateQuiz = quizService.updateQuiz(quiz);
-////        return new ResponseEntity<>(updateQuiz, HttpStatus.OK);  //ok is 200 status code
-//    }
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Quiz> getQuizByTitle(@PathVariable("title")  String title)
+    {
+        Quiz quiz = quizService.findQuizByTitle(title);
+        return new ResponseEntity<>(quiz, HttpStatus.OK); //ok is 200 status code
+    }
 
     // "A collection with cascade=\"all-delete-orphan\" was no longer referenced by the owning entity instance: uk.ac.bolton.backend.Model.Quiz.questions
     @PutMapping("/update/{id}") // this doesnt work
